@@ -1,4 +1,4 @@
-using AutoMapper;
+using HrLeaveManagementSystem.Src.Core.Application.Exceptions;
 using MediatR;
 
 namespace HrLeaveManagementSystem.Src.Core.Application.Features.LeaveType.Commands.DeleteLeaveType;
@@ -19,6 +19,10 @@ public class DeleteLeaveTypeCommandHandler : IRequestHandler<DeleteLeaveTypeComm
         var leaveTypeToDelete = await _leaveTypeRepository.GetByIdAsync(request.Id);
 
         // verify that record exists
+        if(leaveTypeToDelete == null)
+        {
+            throw new NotFoundException(nameof(LeaveType), request.Id);
+        }
 
         // Remove from database
         await _leaveTypeRepository.DeleteAsync(leaveTypeToDelete);
