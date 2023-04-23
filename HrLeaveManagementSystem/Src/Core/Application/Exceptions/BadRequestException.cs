@@ -19,6 +19,6 @@ public class BadRequestException : Exception
         }
     }
 
-    public List<string>? ValidationErrors { get; set; }
+    public List<string> ValidationErrors { get; set; }
 
 }
