@@ -15,7 +15,14 @@ public static class PersistenceServiceRegistration
             options.UseSqlServer(configuration.GetConnectionString("HrDatabaseConfigurationString"));
         });
 
+        // The first iOC approach is done differently because of the fact that
+        // IGenericRepository takes in a generic type
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+        services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
+        services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
+        services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
+
         return services;
     }
 }

@@ -1,6 +1,8 @@
+using HrLeaveManagementSystem.Src.Core.Domain.Common;
+
 namespace HrLeaveManagementSystem.Src.Core.Application.Contracts.Persistence;
 
-public interface IGenericRepository<T> where T : class
+public interface IGenericRepository<T> where T : BaseEntity
 {
     Task<IReadOnlyList<T>> GetAsync();
     Task<T> GetByIdAsync(int id);
