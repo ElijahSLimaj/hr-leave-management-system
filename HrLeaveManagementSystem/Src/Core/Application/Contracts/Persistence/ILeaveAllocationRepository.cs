@@ -3,7 +3,7 @@ using HrLeaveManagementSystem.Src.Core.Domain;
 
 public interface ILeaveAllocationRepository : IGenericRepository<LeaveAllocation>
 {
-    Task<LeaveAllocation> GetLeaveAllocaiontWithDetails(int id);
+    Task<LeaveAllocation> GetLeaveAllocationtWithDetails(int id);
     Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails();
     Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails(string userId);
     Task<bool> AllocationExists(string userId, int leaveTypeId, int period);
