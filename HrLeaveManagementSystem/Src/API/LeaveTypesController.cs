@@ -1,4 +1,6 @@
 using HrLeaveManagementSystem.Src.Core.Application.Features.LeaveType.Commands.CreateLeaveType;
+using HrLeaveManagementSystem.Src.Core.Application.Features.LeaveType.Commands.DeleteLeaveType;
+using HrLeaveManagementSystem.Src.Core.Application.Features.LeaveType.Commands.UpdateLeaveType;
 using HrLeaveManagementSystem.Src.Core.Application.Features.LeaveType.Queries.GetAllLeaveTypes;
 using HrLeaveManagementSystem.Src.Core.Application.Features.LeaveType.Queries.GetLeaveTypeDetails;
 using MediatR;
@@ -34,6 +36,29 @@ public class LeaveTypesController : ControllerBase
     public async Task<ActionResult> Post(CreateLeaveTypeCommand createLeaveType)
     {
         var response = await _mediator.Send(createLeaveType);
-        return CreatedAtAction(nameof(Get), new {Id = response});
+        return CreatedAtAction(nameof(Get), new { Id = response });
+    }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> Put(UpdateLeaveTypeCommand leaveType)
+    {
+        await _mediator.Send(leaveType);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var command = new DeleteLeaveTypeCommand{Id = id};
+
+        await _mediator.Send(command);
+
+        return NoContent();
     }
 }
